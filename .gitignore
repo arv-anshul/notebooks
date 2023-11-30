@@ -1,17 +1,13 @@
-# Ignore virtual environments
-.venv/
-
-# Ignore environment variables
-.env
-
-# Ignore files
-*__rough__*.*
-
-# Ignore directories
-.vscode/
-.DS_Store
+# Custom arv-anshul .gitignore snippet
 __pycache__/
-.ipynb_checkpoints/
 __rough__/
+.DS_Store
+.env
+.ipynb_checkpoints/
+.venv/
+.vscode/
+*__rough__*.*
+*.arv*
+logs/
 
-# Custom project files and folders
+# --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- #
