@@ -1,0 +1,23 @@
+[project]
+name = "credit-modeling"
+version = "0.1.0"
+description = "Credit risk modeling project from CampusX course."
+authors = [
+    { name = "Anshul Raj Verma", email = "111767754+arv-anshul@users.noreply.github.com" },
+]
+dependencies = [
+    "matplotlib==3.8.4",
+    "openpyxl==3.1.2",
+    "polars[pyarrow,plot]==0.20.22",
+    "scikit-learn==1.4.2",
+    "scipy==1.13.0",
+    "seaborn==0.13.2",
+    "statsmodels==0.14.2",
+    "xlsx2csv==0.8.2",
+]
+requires-python = ">=3.11"
+
+[tool.rye]
+managed = true
+virtual = true
+dev-dependencies = ["ipykernel==6.29.4"]
