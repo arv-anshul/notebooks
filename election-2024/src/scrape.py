@@ -76,7 +76,7 @@ async def store_full_result(client: httpx.AsyncClient | None = None):
     async with client or httpx.AsyncClient(base_url=BASE_URL) as client:
         full_result = await fetch_all_state_result(client)
     ldfs = await pl.concat(full_result).collect_async()
-    RESULTS_DATA_PATH.mkdir(parents=True, exist_ok=True)
+    RESULTS_DATA_PATH.parent.mkdir(parents=True, exist_ok=True)
     ldfs.write_csv(RESULTS_DATA_PATH)
 
 
