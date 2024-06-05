@@ -80,6 +80,10 @@ def preprocess(df: pl.LazyFrame) -> pl.LazyFrame:
 
 
 async def fetch_current_result() -> None:
+    if not RESULTS_DATA_PATH.exists():
+        await store_full_result()
+        st.balloons()
+
     if st.button("Fetch Current Result", type="primary", use_container_width=True):
         await store_full_result()
         st.balloons()
