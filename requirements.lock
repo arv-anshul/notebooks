@@ -6,5 +6,5 @@
 #   features: []
 #   all-features: false
 #   with-sources: false
+#   generate-hashes: false
 
-polars==0.20.10

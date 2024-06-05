@@ -4,12 +4,16 @@ version = "0.1.0"
 description = "Contains notebook of all my projects."
 authors = [{ name = "Anshul Raj Verma", email = "arv.anshul.1864@gmail.com" }]
 requires-python = ">= 3.11"
-dependencies = ["polars==0.20.10"]
+# Add dependencies as you need it
+dependencies = []
 
 [tool.rye]
 managed = true
 virtual = true
-dev-dependencies = ["ipykernel==6.29.2"]
+# ipykernel used to initiate Jupyter Notebook session in VSCode
+dev-dependencies = [
+    "ipykernel==6.29.4",
+]
 
 [tool.ruff]
 target-version = "py311"
