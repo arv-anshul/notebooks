@@ -7,10 +7,49 @@ import httpx
 import polars as pl
 
 BASE_URL = "https://results.eci.gov.in/PcResultGenJune2024"
+
 DATA_PATH = Path("data")
-PC_CODE_DICT = json.loads((DATA_PATH / "pc_code.json").read_bytes())
 GEOMETRY_DATA_PATH = DATA_PATH / "geometry.json"
 RESULTS_DATA_PATH = DATA_PATH / "results.csv"
+
+PC_CODE_DICT = {
+    "S01": "Andhra Pradesh",
+    "S02": "Arunachal Pradesh",
+    "S03": "Assam",
+    "S04": "Bihar",
+    "S05": "Goa",
+    "S06": "Gujarat",
+    "S07": "Haryana",
+    "S08": "Himachal Pradesh",
+    "S10": "Karnataka",
+    "S11": "Kerala",
+    "S12": "Madhya Pradesh",
+    "S13": "Maharashtra",
+    "S14": "Manipur",
+    "S15": "Meghalaya",
+    "S16": "Mizoram",
+    "S17": "Nagaland",
+    "S18": "Odisha",
+    "S19": "Punjab",
+    "S20": "Rajasthan",
+    "S21": "Sikkim",
+    "S22": "Tamil Nadu",
+    "S23": "Tripura",
+    "S24": "Uttar Pradesh",
+    "S25": "West Bengal",
+    "S26": "Chhattisgarh",
+    "S27": "Jharkhand",
+    "S28": "Uttarakhand",
+    "S29": "Telangana",
+    "U01": "Andaman & Nicobar Islands",
+    "U02": "Chandigarh",
+    "U03": "Dadra & Nagar Haveli and Daman & Diu",
+    "U05": "NCT OF Delhi",
+    "U06": "Lakshadweep",
+    "U07": "Puducherry",
+    "U08": "Jammu and Kashmir",
+    "U09": "Ladakh",
+}
 
 
 async def get_statewise_result(
