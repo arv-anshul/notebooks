@@ -50,13 +50,19 @@ Created a dashboard using Streamlit which fetches data from ECI official website
 <details>
 <summary>Where is Notebooks?</summary>
 
-There are no notebooks present in this project because I've converted those into `.py`
-scripts because I have to create a dashboard using it and converted notebook's
-non-`async` codes into `async` code.
+There are no notebooks present in this project because I've converted those into `.py` scripts because I have to create
+a dashboard using it and converted notebook's non-`async` codes into `async` code.
 
 </details>
 
+### [`marimo`](marimo/)
+
+Instead of Jupyter Notebook uses Marimo a new project as an alternative to Jupyter Notebooks. See marimo
+[website](https://marimo.io).
+
+🏟️ Try Marimo playground at [marimo.app](https://marimo.app)
+
 ### [`extra`](extra/)
 
-This directory contains extra notebooks which are independent of each others.
-Created these notebooks just for learning or fun purpose.
+This directory contains extra notebooks which are independent of each others. Created these notebooks just for learning
+or fun purpose.
