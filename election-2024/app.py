@@ -95,7 +95,7 @@ async def alliance_pie_chart(df: pl.LazyFrame):
         .get_column("alliance")
         .value_counts(sort=True)
         .with_columns(
-            pl.col("alliance").add(" (").add(pl.col("count").cast(pl.String)).add(")")
+            pl.col("alliance").add(" (").add(pl.col("count").cast(pl.String)).add(")"),
         )
     )
     fig = px.pie(

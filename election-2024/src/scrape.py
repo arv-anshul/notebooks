@@ -84,7 +84,7 @@ async def load_statewise_data(data: dict[str, Any]) -> pl.LazyFrame:
 async def fetch_all_state_result(client: httpx.AsyncClient) -> list[pl.LazyFrame]:
     tasks = [get_statewise_result(client, pc_code) for pc_code in PC_CODE_DICT]
     return await asyncio.gather(
-        *[load_statewise_data(data) for data in await asyncio.gather(*tasks)]
+        *[load_statewise_data(data) for data in await asyncio.gather(*tasks)],
     )
 
 
@@ -105,7 +105,7 @@ async def fetch_all_state_geometry(client: httpx.AsyncClient) -> list[dict[str, 
     return [
         j
         for i in await asyncio.gather(
-            *[get_statewise_geometry(client, pc_code) for pc_code in PC_CODE_DICT]
+            *[get_statewise_geometry(client, pc_code) for pc_code in PC_CODE_DICT],
         )
         for j in i
     ]

@@ -1,4 +1,5 @@
-from typing import Any, Iterable, Literal, TypedDict
+from collections.abc import Iterable
+from typing import Any, Literal, TypedDict
 
 from scipy import stats
 

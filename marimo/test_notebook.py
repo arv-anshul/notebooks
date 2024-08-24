@@ -22,7 +22,7 @@ def __():
 @app.cell
 def __(pl):
     df = pl.read_csv(
-        "https://github.com/arv-anshul/notebooks/raw/main/data/data_job_salaries.csv"
+        "https://github.com/arv-anshul/notebooks/raw/main/data/data_job_salaries.csv",
     )
     print(df.shape)
     df.head()
@@ -40,9 +40,8 @@ def __(mo):
         Checkout the [docs](https://docs.pola.rs/user-guide/sql/intro/) for `pl.SQLContext`.
 
         [marimo]: https://marimo.io
-        """
+        """,
     )
-    return
 
 
 @app.cell
@@ -54,33 +53,28 @@ def __(df, pl):
 @app.cell
 def __(mo):
     mo.md(r"### Top 5 rows of dataset")
-    return
 
 
 @app.cell
 def __(ctx):
     ctx.execute("SELECT * from df LIMIT 5")
-    return
 
 
 @app.cell
 def __(mo):
     mo.md(r"### Q. Calculate average salary for each expereience level.")
-    return
 
 
 @app.cell
 def __(ctx):
     ctx.execute(
-        "SELECT experience_level, avg(salary_in_usd) FROM df GROUP BY experience_level"
+        "SELECT experience_level, avg(salary_in_usd) FROM df GROUP BY experience_level",
     )
-    return
 
 
 @app.cell
 def __(mo):
     mo.md(r"### Q. Average salary different Jobs in each country for different year.")
-    return
 
 
 @app.cell
@@ -127,7 +121,6 @@ def __(country, ctx, year):
 @app.cell
 def __(country, df, pl):
     df.select(pl.col("company_location").eq(country.value).sum())
-    return
 
 
 if __name__ == "__main__":
