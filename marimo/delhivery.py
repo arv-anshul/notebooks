@@ -1,30 +1,36 @@
 # /// script
 # requires-python = ">=3.11"
 # dependencies = [
+#     "altair==5.4.1",
 #     "marimo",
 #     "polars[plot]==1.7.1",
+#     "scipy==1.14.1",
 # ]
 # ///
 
 import marimo
 
-__generated_with = "0.8.18"
+__generated_with = "0.8.20"
 app = marimo.App(
-    app_title="Case Study on Delhivery Dataset",
     width="full",
+    app_title="Case Study on Delhivery Dataset",
+    css_file="",
 )
 
 
 @app.cell
 def __():
+    import typing
+    from itertools import combinations
     from pathlib import Path
 
     import altair as alt
     import polars as pl
+    from scipy import stats
 
     import marimo as mo
 
-    return Path, alt, mo, pl
+    return Path, alt, combinations, mo, pl, stats, typing
 
 
 @app.cell
@@ -60,7 +66,7 @@ def __(mo):
     )
 
 
-@app.cell(hide_code=True)
+@app.cell
 def __(mo):
     mo.md(
         """
@@ -96,7 +102,7 @@ def __(mo):
     )
 
 
-@app.cell(hide_code=True)
+@app.cell
 def __(mo):
     mo.carousel(
         [
@@ -120,7 +126,7 @@ def __(mo):
     )
 
 
-@app.cell(hide_code=True)
+@app.cell
 def __(mo):
     _1 = mo.md("## Hints/Suggestions").center()
     _2 = mo.callout(
@@ -170,10 +176,10 @@ def __(pl):
             "cutoff_timestamp": pl.Datetime,
         },
     )
-    return (delhivery,)
+    return data_url, delhivery
 
 
-@app.cell(hide_code=True)
+@app.cell
 def __(delhivery, mo, pl):
     _df_height = delhivery.select("data").collect().height
     _null_count = (
@@ -260,7 +266,7 @@ def __(delhivery, mo, pl):
     return cat_cols, datetime_cols, id_cols, num_cols
 
 
-@app.cell(hide_code=True)
+@app.cell
 def __(cat_cols, delhivery, mo, num_cols):
     mo.vstack(
         [
@@ -354,7 +360,7 @@ def __(alt, bin_count, delhivery, mo, num_cols, pl):
     mo.vstack(
         [
             mo.md("## Numerical Column HistPlot").center(),
-            bin_count,
+            bin_count.center(),
             mo.ui.altair_chart(
                 _num_cols_distribution(delhivery, num_cols, bin_count=bin_count.value),
                 chart_selection=False,
@@ -364,34 +370,77 @@ def __(alt, bin_count, delhivery, mo, num_cols, pl):
 
 
 @app.cell
-def __(alt, bin_count, delhivery, mo, num_cols, pl):
-    def _num_cols_distribution(df: pl.DataFrame, num_cols, *, bin_count: int = 10):
-        charts = []
-        for col in num_cols:
-            chart = (
-                df.select(
-                    pl.col(col).hist(bin_count=bin_count, include_breakpoint=True),
+def __(mo):
+    mo.md("## Hypothesis Testing").center()
+
+
+@app.cell
+def __(mo):
+    mo.md("""### **Normality Test** on Numerical Coulmns""")
+
+
+@app.cell
+def __(delhivery, mo, num_cols, pl, stats, typing):
+    def normality_test(
+        df: pl.DataFrame,
+        cols: typing.Sequence[str],
+    ):
+        tests = ["shapiro", "normaltest"]
+        for col in cols:
+            results = {}
+            for test in tests:
+                _, p = getattr(stats, test)(
+                    df.select(pl.col(col).sample(5000, seed=42))
+                    .collect()
+                    .get_column(col),
                 )
-                .collect()
-                .unnest(col)
-                .rename({"breakpoint": "bins"})
-                .plot.bar(x=alt.X("bins", bin=True, title=col), y="count")
-            )
-            charts.append(chart)
+                results[test] = p
+            yield {"column": col, **results}
+            results.clear()
 
-        return charts
+    mo.ui.table(list(normality_test(delhivery, num_cols)), selection=None)
+    return (normality_test,)
 
-    _charts = _num_cols_distribution(delhivery, num_cols, bin_count=bin_count.value)
-    mo.vstack(
-        [
-            mo.md("## Numerical Column HistPlot").center(),
-            bin_count.center(),
-            mo.carousel(
-                mo.ui.altair_chart(chart, chart_selection=False, legend_selection=False)
-                for chart in _charts
-            ),
-        ],
-    )
+
+@app.cell
+def __(mo):
+    mo.md("### **Correlation Test** on Numerical Columns")
+
+
+@app.cell
+def __(combinations, delhivery, mo, num_cols, pl, stats, typing):
+    def correlation_test(
+        df: pl.DataFrame,
+        cols: typing.Sequence[str],
+    ):
+        tests = ["pearsonr", "spearmanr", "kendalltau"]
+        for col1, col2 in combinations(cols, 2):
+            results = {}
+            for test in tests:
+                _, p = getattr(stats, test)(
+                    df.select(pl.col(col1).sample(5000, seed=42))
+                    .collect()
+                    .get_column(col1),
+                    df.select(pl.col(col2).sample(5000, seed=42))
+                    .collect()
+                    .get_column(col2),
+                )
+                results[test] = p
+            yield {"column1": col1, "column2": col2, **results}
+            results.clear()
+
+    mo.ui.table(list(correlation_test(delhivery, num_cols)), selection=None)
+    return (correlation_test,)
+
+
+@app.cell
+def __(mo):
+    mo.md("### **Correlation Test** on Categorical Column")
+
+
+@app.cell
+def __():
+    return
 
 
 if __name__ == "__main__":
