@@ -3,30 +3,36 @@
 As I am learning some applications of LLMs, I am also trying to built a **Chat With Data** application with LangChain
 and LangGraph like tools using LLM.
 
-## Scripts
+[**👀 See the best script**](#_3_few_shot_chatpy)
 
-### `_1_query_pandas_df.py`
+> \[!IMPORTANT\]
+>
+> 1. Using [`uv`](https://github.com/astral-sh/uv) to run the scripts.
+> 2. Below scripts uses `ollama` to interact with LLMs (`llama3:8b`/`mistral:7b`). So you need to install
+>    [`ollama`](https://github.com/ollama/ollama) in you system.
+
+## `_1_query_pandas_df.py`
 
 Query your pandas dataframe using LLM.
 
-#### Usage
+### Usage
 
 ```bash
 uv run _1_query_pandas_df.py
 ```
 
-#### Approach
+### Approach
 
-- Used IPL dataset from kaggle. (https://kaggle.com/datasets/patrickb1912/ipl-complete-dataset-20082020)
+- Used IPL dataset from Kaggle. (https://kaggle.com/datasets/patrickb1912/ipl-complete-dataset-20082020)
 - Used Ollama to interact with LLMs.
-- Used `PythonAstREPLTool` to excecute generated pandas code.
+- Used `PythonAstREPLTool` to execute generated pandas code.
 - The resultant answer then passes to another LLM to form a better response for user.
 
-### `_2_sql_react_agent.py`
+## `_2_sql_react_agent.py`
 
 Query csv file using SQL statements.
 
-#### Usage
+### Usage
 
 ```bash
 uv run _2_sql_react_agent.py \
@@ -34,16 +40,18 @@ uv run _2_sql_react_agent.py \
   "How many they won out of them?" \
 ```
 
-#### Process
+### Approach
 
 - Used IPL dataset from kaggle. (https://kaggle.com/datasets/patrickb1912/ipl-complete-dataset-20082020)
 - Polars library to query a `pl.LazyFrame` object with SQL statements using `pl.SQLContext` object.
   - See docs: https://docs.pola.rs/user-guide/sql/intro
-- Used [`create_react_agent`](https://langchain-ai.github.io/langgraph/reference/prebuilt/)
-  from LangGraph library for this task.
+- Used [`create_react_agent`](https://langchain-ai.github.io/langgraph/reference/prebuilt/) from LangGraph library for
+  this task.
 - Tried to implement memory feature.
 
-### `_3_few_shot_chat.py`
+## `_3_few_shot_chat.py`
+
+### Approach
 
 ![_3_diagram.png](./assets/_3_diagram.png)
 
@@ -89,7 +97,7 @@ Final Response Prompt > LLM2
 
 </details>
 
-#### Usage
+### Usage
 
 ```bash
 # Install `marimo` globally in your system using `uv` (because I have)
@@ -101,7 +109,7 @@ marimo run --sandbox --headless --no-token --port 8000 _3_few_shot_chat.py
 
 🏃 Now visit http://localhost:8000/ to see the app.
 
-#### Working
+### Working
 
 At the bottom of the webpage, you can enter your query in the input box.
 
