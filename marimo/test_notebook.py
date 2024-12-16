@@ -106,7 +106,7 @@ def __(ctx, mo, pl):
 
 
 @app.cell
-def __(country, ctx, year):
+def __():
     # ctx.execute(
     #     f"""
     #     SELECT work_year, company_location, avg(salary_in_usd) FROM df

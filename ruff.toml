@@ -1,5 +1,7 @@
 target-version = "py311"
-show-fixes = true
+extend-exclude = [
+    "credit-modeling/sambhavm22", # Written by @sambhav himself
+]
 
 [lint]
 extend-select = [
@@ -31,7 +33,7 @@ extend-select = [
     "S",
     "SIM",
     "SLF",
-    "TCH",
+    "TC",
     "UP",
     "W",
     "YTT",
@@ -39,6 +41,7 @@ extend-select = [
 extend-ignore = [
     "B008",
     "B905",
+    "COM812",
     "E501",
     "E741",
     "EM101",
@@ -57,3 +60,6 @@ extend-unfixable = ["B", "F401"]
 
 [lint.per-file-ignores]
 "__init__.py" = ["F401", "E402"]
+"marimo/**" = [
+    "B018", # useless-expression
+]

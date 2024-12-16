@@ -112,7 +112,7 @@ async def fetch_all_state_geometry(client: httpx.AsyncClient) -> list[dict[str, 
 
 
 async def store_full_result(client: httpx.AsyncClient | None = None):
-    async with client or httpx.AsyncClient(base_url=BASE_URL) as client:
+    async with client or httpx.AsyncClient(base_url=BASE_URL) as client:  # noqa: PLR1704
         full_result = await fetch_all_state_result(client)
     ldfs = await pl.concat(full_result).collect_async()
     RESULTS_DATA_PATH.parent.mkdir(parents=True, exist_ok=True)
@@ -120,7 +120,7 @@ async def store_full_result(client: httpx.AsyncClient | None = None):
 
 
 async def store_full_geometry(client: httpx.AsyncClient | None = None):
-    async with client or httpx.AsyncClient(base_url=BASE_URL) as client:
+    async with client or httpx.AsyncClient(base_url=BASE_URL) as client:  # noqa: PLR1704
         full_geometry = await fetch_all_state_geometry(client)
     GEOMETRY_DATA_PATH.parent.mkdir(parents=True, exist_ok=True)
     with GEOMETRY_DATA_PATH.open("w") as f:
