@@ -60,6 +60,3 @@ extend-unfixable = ["B", "F401"]
 
 [lint.per-file-ignores]
 "__init__.py" = ["F401", "E402"]
-"marimo/**" = [
-    "B018", # useless-expression
-]

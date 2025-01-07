@@ -10,38 +10,35 @@
 
 import marimo
 
-__generated_with = "0.8.20"
+__generated_with = "0.10.9"
 app = marimo.App(
     width="full",
     app_title="Case Study on Delhivery Dataset",
-    css_file="",
 )
 
 
 @app.cell
-def __():
+def _():
     import typing
     from itertools import combinations
     from pathlib import Path
 
     import altair as alt
+    import marimo as mo
     import polars as pl
     from scipy import stats
-
-    import marimo as mo
 
     return Path, alt, combinations, mo, pl, stats, typing
 
 
 @app.cell
-def __(pl):
+def _(pl):
     # Set some config for notebook
-    pl.Config.set_fmt_str_lengths(42).set_thousands_separator(True)
-    None
+    _ = pl.Config.set_fmt_str_lengths(42).set_thousands_separator(True)
 
 
 @app.cell
-def __(mo):
+def _(mo):
     mo.carousel(
         [
             mo.md("## About Delhivery"),
@@ -67,7 +64,7 @@ def __(mo):
 
 
 @app.cell
-def __(mo):
+def _(mo):
     mo.md(
         """
         ## Column Profiling
@@ -103,7 +100,7 @@ def __(mo):
 
 
 @app.cell
-def __(mo):
+def _(mo):
     mo.carousel(
         [
             mo.md("## Approach to Follow"),
@@ -127,7 +124,7 @@ def __(mo):
 
 
 @app.cell
-def __(mo):
+def _(mo):
     _1 = mo.md("## Hints/Suggestions").center()
     _2 = mo.callout(
         mo.md("""
@@ -165,7 +162,7 @@ def __(mo):
 
 
 @app.cell
-def __(pl):
+def _(pl):
     data_url = "https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/001/551/original/delhivery_data.csv"
     delhivery = pl.scan_csv(
         data_url,
@@ -180,7 +177,7 @@ def __(pl):
 
 
 @app.cell
-def __(delhivery, mo, pl):
+def _(delhivery, mo, pl):
     _df_height = delhivery.select("data").collect().height
     _null_count = (
         delhivery.null_count()
@@ -267,7 +264,7 @@ def __(delhivery, mo, pl):
 
 
 @app.cell
-def __(cat_cols, delhivery, mo, num_cols):
+def _(cat_cols, delhivery, mo, num_cols):
     mo.vstack(
         [
             mo.md("### Categorical Columns").center(),
@@ -289,7 +286,7 @@ def __(cat_cols, delhivery, mo, num_cols):
 
 
 @app.cell
-def __(alt, cat_cols, delhivery, mo, pl):
+def _(alt, cat_cols, delhivery, mo, pl):
     def _cat_cols_countplot(df, cat_cols):
         charts = []  # list to hold each chart
 
@@ -328,13 +325,13 @@ def __(alt, cat_cols, delhivery, mo, pl):
 
 
 @app.cell
-def __(mo):
+def _(mo):
     bin_count = mo.ui.slider(2, 20, 1, 10, label="Select Bin Count")
     return (bin_count,)
 
 
 @app.cell
-def __(alt, bin_count, delhivery, mo, num_cols, pl):
+def _(alt, bin_count, delhivery, mo, num_cols, pl):
     def _num_cols_distribution(df: pl.DataFrame, num_cols, *, bin_count: int = 10):
         charts = []
         for col in num_cols:
@@ -370,17 +367,17 @@ def __(alt, bin_count, delhivery, mo, num_cols, pl):
 
 
 @app.cell
-def __(mo):
+def _(mo):
     mo.md("## Hypothesis Testing").center()
 
 
 @app.cell
-def __(mo):
+def _(mo):
     mo.md("""### **Normality Test** on Numerical Coulmns""")
 
 
 @app.cell
-def __(delhivery, mo, num_cols, pl, stats, typing):
+def _(delhivery, mo, num_cols, pl, stats, typing):
     def normality_test(
         df: pl.DataFrame,
         cols: typing.Sequence[str],
@@ -403,12 +400,12 @@ def __(delhivery, mo, num_cols, pl, stats, typing):
 
 
 @app.cell
-def __(mo):
-    mo.md("### **Correlation Test** on Numerical Columns")
+def _(mo):
+    mo.md("""### **Correlation Test** on Numerical Columns""")
 
 
 @app.cell
-def __(combinations, delhivery, mo, num_cols, pl, stats, typing):
+def _(combinations, delhivery, mo, num_cols, pl, stats, typing):
     def correlation_test(
         df: pl.DataFrame,
         cols: typing.Sequence[str],
@@ -434,12 +431,12 @@ def __(combinations, delhivery, mo, num_cols, pl, stats, typing):
 
 
 @app.cell
-def __(mo):
-    mo.md("### **Correlation Test** on Categorical Column")
+def _(mo):
+    mo.md("""### **Correlation Test** on Categorical Column""")
 
 
 @app.cell
-def __():
+def _():
     return
 
 
