@@ -172,7 +172,7 @@ def _(pl):
 
 
 @app.cell
-def _(DEVICE, SEED, make_labels_col_multi_labels, pl, preprocess_df):
+def _(SEED, make_labels_col_multi_labels, pl, preprocess_df):
     # Load the dataset
     df = (
         pl.scan_csv(
@@ -182,7 +182,7 @@ def _(DEVICE, SEED, make_labels_col_multi_labels, pl, preprocess_df):
         .drop_nulls()
         .pipe(preprocess_df)
         .pipe(make_labels_col_multi_labels)
-        .collect(engine=("gpu" if DEVICE == "cuda" else "cpu"))
+        .collect()
         # NOTE: check below line before preceeding
         .sample(250, shuffle=True, seed=SEED)
     )
