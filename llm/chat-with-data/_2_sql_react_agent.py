@@ -34,7 +34,7 @@ system_message = f"""
     - JUST GIVE ME THE SQL QUERY
     - WITHOUT USING "```" OR ANY TEXT.
     - GENERATE A CONCISE AND OPTIMIZED QUERY.
-    - ALSO EXCECUTE THE QUERY USING PROVIDED TOOL.
+    - ALSO EXECUTE THE QUERY USING PROVIDED TOOL.
     - USE `LIMIT` TO LIMIT THE QUERY RESULT.
     - ALSO TRY TO HANDLE NORMAL CONVERSTION WITHOUT ANY TOOL CALLING.
     SQL Query:
@@ -42,7 +42,7 @@ system_message = f"""
 
 
 def sql_executor(sql: str) -> Any:
-    """Excecute SQL query using this tool."""
+    """Execute SQL query using this tool."""
     return sql_ctx.execute(sql)
 
 

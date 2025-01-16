@@ -53,6 +53,7 @@ def _():
     import shutil
     from operator import itemgetter
 
+    import marimo as mo
     import polars as pl
     from langchain_chroma import Chroma
     from langchain_core.example_selectors import SemanticSimilarityExampleSelector
@@ -64,8 +65,6 @@ def _():
     )
     from langchain_core.runnables import RunnableLambda, RunnablePassthrough
     from langchain_ollama import ChatOllama, OllamaEmbeddings
-
-    import marimo as mo
 
     return (
         ChatOllama,
@@ -294,7 +293,7 @@ def _(mo, model_selector):
 
 @app.cell
 def _(final_chain, matches, mo, question_input_widget):
-    # This stop the exceution if the widget has no value
+    # This stop the execution if the widget has no value
     mo.stop(not question_input_widget.value)
 
     with mo.status.spinner("Processing..."):
