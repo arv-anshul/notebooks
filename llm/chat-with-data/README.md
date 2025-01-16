@@ -3,7 +3,7 @@
 As I am learning some applications of LLMs, I am also trying to built a **Chat With Data** application with LangChain
 and LangGraph like tools using LLM.
 
-[**👀 See the best script**](#_3_few_shot_chatpy)
+[**👀 See the best script**](#_3_few_shot_chat_mopy)
 
 > \[!IMPORTANT\]
 >
@@ -49,7 +49,7 @@ uv run _2_sql_react_agent.py \
   this task.
 - Tried to implement memory feature.
 
-## `_3_few_shot_chat.py`
+## `_3_few_shot_chat_mo.py`
 
 ### Approach
 
@@ -104,7 +104,7 @@ Final Response Prompt > LLM2
 uv tool install marimo
 
 # Then use `marimo` cli to run the file
-marimo run --sandbox --headless --no-token --port 8000 _3_few_shot_chat.py
+marimo run --sandbox --no-token --port 8000 _3_few_shot_chat_mo.py
 ```
 
 🏃 Now visit http://localhost:8000/ to see the app.
