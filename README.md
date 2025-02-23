@@ -55,13 +55,6 @@ a dashboard using it and converted notebook's non-`async` codes into `async` cod
 
 </details>
 
-### [`marimo`](marimo/)
-
-Instead of Jupyter Notebook uses Marimo a new project as an alternative to Jupyter Notebooks. See marimo
-[website](https://marimo.io).
-
-🏟️ Try Marimo playground at [marimo.app](https://marimo.app)
-
 ### [`extra`](extra/)
 
 This directory contains extra notebooks which are independent of each others. Created these notebooks just for learning
